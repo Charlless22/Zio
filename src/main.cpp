@@ -1,20 +1,24 @@
-#include "Engine/window.h"
-#include "Engine/renderer.h"
+#include <Zio/zio.hpp>
 #include <iostream>
 
 int main() {
     try {
-        Engine::Window window(1280, 720, "MyEngine");
-        Engine::Renderer renderer;
+        Zio::Window window(800, 600, "Test");
+        Zio::Input::Init(window.GetNativeWindow());
 
         while (!window.ShouldClose()) {
-            window.PollEvents();
-            renderer.Clear(0.2f, 0.3f, 0.3f, 1.0f);
+            glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+
             window.SwapBuffers();
+            Zio::Window::PollEvents();
+
+            if (Zio::Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+                std::cout << "Espace pressé !" << std::endl;
+            }
         }
     } catch (const std::exception& e) {
-        std::cerr << "Fatal error: " << e.what() << std::endl;
-        return -1;
+        std::cerr << "Exception: " << e.what() << std::endl;
     }
 
     return 0;

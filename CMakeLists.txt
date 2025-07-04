@@ -15,8 +15,8 @@ find_package(glad CONFIG REQUIRED)
 
 add_executable(MyEngine
         src/main.cpp
-        src/Window.cpp
-        src/Renderer.cpp
+        src/window.cpp
+        src/input.cpp
 )
 
 target_include_directories(MyEngine PRIVATE include)
